@@ -18,6 +18,34 @@ The system extracts structured requirements from a job description, identifies r
 
 ---
 
+## Demo
+
+### Resume and Job Description Input
+
+Users can upload a resume as a PDF or paste resume text directly, then provide a job description for analysis.
+
+![Resume and job description input](assets/app-input.png)
+
+### Match Score Overview
+
+The system computes an overall resume–JD alignment score and breaks it down by weighted dimensions, including required skills, tools/frameworks, nice-to-have skills, and domain relevance.
+
+![Match score overview](assets/score-overview.png)
+
+### Keyword Match Breakdown
+
+Extracted JD requirements are classified into four match levels: Strong Match, Partial Match, Related Experience, and Missing. Each item includes a confidence score and supporting resume evidence.
+
+![Keyword match breakdown](assets/match-breakdown.png)
+
+### Human-in-the-Loop Bullet Review
+
+Rewritten bullets are reviewed before final report generation. Users can accept, reject, or edit suggested rewrites.
+
+![Human-in-the-loop bullet review](assets/rewrite-review.png)
+
+---
+
 ## Architecture
 
 ```text
