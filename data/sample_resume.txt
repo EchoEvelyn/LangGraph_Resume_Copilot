@@ -1,0 +1,43 @@
+Jane Doe
+jane.doe@email.com | github.com/janedoe | linkedin.com/in/janedoe | San Francisco, CA
+
+SUMMARY
+ML engineer with 3 years of experience building NLP pipelines and LLM-powered applications.
+Focused on retrieval-augmented generation, model evaluation, and production-ready Python services.
+
+EXPERIENCE
+
+AI Engineer — Acme AI (Jan 2023 – Present)
+• Built a RAG pipeline using LangChain and FAISS to answer support queries, reducing ticket volume by 28%.
+• Implemented an LLM evaluation framework using custom metrics (faithfulness, relevance, context recall) tracked with MLflow.
+• Developed a Streamlit interface for internal QA teams to review and rate model responses, enabling iterative improvement.
+• Fine-tuned a sentence-transformers embedding model on domain-specific data, improving retrieval precision by 18%.
+• Designed prompt templates and chain-of-thought prompting strategies to improve structured output reliability.
+• Containerised services with Docker and deployed on AWS ECS; wrote CI/CD pipelines in GitHub Actions.
+
+ML Engineer Intern — DataCo (Jun 2022 – Dec 2022)
+• Preprocessed and analysed 500K customer reviews using spaCy and pandas for a sentiment classification project.
+• Trained a BERT-based text classifier with Hugging Face Transformers; achieved 91% accuracy on the test set.
+• Created data visualisation dashboards in Plotly Dash to surface model performance metrics to stakeholders.
+
+PROJECTS
+
+LangGraph Resume Copilot (2024)
+• Built a LangGraph-based multi-node workflow to compare resumes against job descriptions and rewrite bullet points.
+• Implemented structured state management with TypedDict and Pydantic; used conditional edges for retry and grounding logic.
+• Added a hallucination prevention layer that checks each rewritten bullet against the original resume before output.
+• Exposed the workflow as a Streamlit application with a human review step for accepting, rejecting, or editing rewrites.
+
+Open-Source RAG Evaluator (2023)
+• Created a Python library for evaluating RAG systems across faithfulness, answer relevance, and context precision.
+• Integrated with OpenAI and Anthropic APIs; supported both batch and streaming evaluation modes.
+• Published on PyPI; accumulated 300+ GitHub stars within three months.
+
+EDUCATION
+B.Sc. Computer Science — University of California, Berkeley (2022)
+
+SKILLS
+Languages: Python, SQL, Bash
+Frameworks: LangChain, LangGraph, Hugging Face Transformers, FastAPI, Streamlit, Plotly
+Tools: FAISS, Docker, GitHub Actions, MLflow, Weights & Biases, AWS (ECS, S3, Lambda)
+Domains: NLP, RAG, LLM evaluation, prompt engineering, fine-tuning, MLOps

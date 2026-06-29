@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+data/results.db
+data/benchmark_results.json
+data/my_resume.txt
+data/jd_*.txt
+.pytest_cache/

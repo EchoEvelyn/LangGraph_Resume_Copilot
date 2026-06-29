@@ -1,0 +1,39 @@
+AI Engineer — Frontier AI Products
+
+Company: NexGen AI
+Location: San Francisco, CA (Hybrid)
+Salary: $160,000 – $200,000
+
+ABOUT THE ROLE
+We are looking for an AI Engineer to join our core platform team and help build the next generation of LLM-powered products. You will own the full lifecycle of AI features — from prototype to production — and work closely with product, data science, and backend engineers.
+
+RESPONSIBILITIES
+• Design, build, and deploy LLM-powered pipelines including RAG systems, agents, and evaluation frameworks.
+• Own retrieval pipeline quality — experiment with chunking strategies, embedding models, and re-ranking.
+• Build and maintain LLM evaluation frameworks to measure faithfulness, relevance, and hallucination rate.
+• Develop prompt engineering strategies and optimise prompts for structured outputs.
+• Collaborate cross-functionally with product and data science to translate requirements into scalable AI systems.
+• Monitor model performance in production and implement feedback loops for continuous improvement.
+• Contribute to MLOps infrastructure including experiment tracking, model versioning, and CI/CD for AI systems.
+
+REQUIRED SKILLS
+• 3+ years of experience in ML engineering or applied AI.
+• Strong proficiency in Python.
+• Hands-on experience with LangChain or LangGraph for building LLM workflows.
+• Experience building and evaluating RAG systems (retrieval, chunking, embedding, re-ranking).
+• Familiarity with vector stores (FAISS, Chroma, Pinecone, or Weaviate).
+• Experience with LLM evaluation metrics and frameworks (e.g. RAGAS, DeepEval, or custom).
+• Solid understanding of prompt engineering including chain-of-thought, few-shot, and structured output.
+• Experience with model fine-tuning (instruction tuning, LoRA, QLoRA).
+• Comfortable with Docker and cloud deployment (AWS, GCP, or Azure).
+• Experience with experiment tracking tools (MLflow, Weights & Biases).
+
+NICE TO HAVE
+• Experience with LangGraph agents and multi-agent orchestration.
+• Familiarity with Kubernetes for container orchestration.
+• Contributions to open-source AI/ML projects.
+• Experience with streaming LLM responses and async Python.
+• Knowledge of safety and alignment techniques for LLM applications.
+
+TECH STACK
+Python, LangChain, LangGraph, OpenAI API, Anthropic API, FAISS, Chroma, MLflow, Weights & Biases, Docker, AWS, FastAPI, Streamlit, Hugging Face, PyTorch

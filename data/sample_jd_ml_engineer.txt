@@ -1,0 +1,35 @@
+ML Engineer — Recommendation Systems
+
+Company: ShopStream
+Location: Remote (US)
+Salary: $140,000 – $180,000
+
+ABOUT THE ROLE
+ShopStream is seeking an ML Engineer to join our Personalisation team. You will build and maintain ML models that power product recommendations for millions of shoppers. You will work closely with data engineers, analysts, and product managers to ship high-impact ML features.
+
+RESPONSIBILITIES
+• Train, evaluate, and deploy recommendation and ranking models at scale.
+• Build and maintain feature pipelines using Spark or Airflow.
+• Collaborate with data engineers to ensure high-quality training data.
+• Monitor model performance in production with automated alerting.
+• Run A/B experiments to measure the business impact of model changes.
+• Write clean, well-tested Python code and contribute to shared ML libraries.
+
+REQUIRED SKILLS
+• 2+ years of ML engineering experience.
+• Strong proficiency in Python and SQL.
+• Experience training and evaluating recommendation or ranking models.
+• Hands-on experience with PyTorch or TensorFlow.
+• Familiarity with feature stores and data pipelines (Feast, Airflow, Spark).
+• Experience with model deployment and serving (TorchServe, Triton, or SageMaker).
+• Comfort with experiment design and A/B testing methodology.
+• Experience with MLflow or similar experiment tracking.
+
+NICE TO HAVE
+• Experience with large-scale retrieval (ANN search, FAISS, ScaNN).
+• Knowledge of transformer-based recommendation models (e.g. BERT4Rec).
+• Familiarity with Kubernetes.
+• Open-source contributions.
+
+TECH STACK
+Python, PyTorch, SQL, Spark, Airflow, MLflow, SageMaker, FAISS, Feast, Docker, Kubernetes
