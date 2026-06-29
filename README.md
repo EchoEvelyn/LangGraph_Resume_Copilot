@@ -1,22 +1,20 @@
-# 📄 LangGraph Resume Copilot
+# LangGraph Resume Copilot
 
-An AI-powered resume optimization system built with **LangGraph**. Upload your resume and a job description — the workflow extracts keywords, scores the match with a 4-level confidence system, rewrites your bullet points, and lets you review before generating a final report.
+An AI-powered resume optimization workflow that analyzes a resume against a job description, identifies skill gaps, scores alignment, rewrites bullet points, and generates a structured improvement report.
 
-Built as a portfolio project for AI Engineer / Applied AI / LLM Engineer job searches.
-
----
-
-## Features
-
-- **Section-aware resume extraction** — Education, Experience, and Projects extracted separately for higher precision
-- **4-level keyword matching** — Strong Match / Partial Match / Related Experience / Missing, each with confidence score and resume evidence
-- **Transparent match scoring** — 5-dimension weighted formula computed in pure Python (no LLM arithmetic)
-- **Bulk bullet rewriting** — All bullets rewritten in a single LLM call with JD keyword alignment
-- **SQLite caching** — Same resume across multiple JDs skips re-extraction entirely
-- **LangSmith tracing** — Per-node latency, token usage, and LLM call monitoring
-- **PDF upload support** — Upload resume as PDF or paste as text
+This project demonstrates production-style LLM application design: LangGraph orchestration, structured extraction, deterministic scoring, SQLite caching, LangSmith tracing, and human-in-the-loop review.
 
 ---
+
+## What this project demonstrates
+
+- Designing multi-step LLM workflows with LangGraph
+- Using structured outputs with Pydantic schemas
+- Separating LLM reasoning from deterministic business logic
+- Building transparent scoring systems instead of relying on LLM-generated numbers
+- Reducing latency and cost through SQLite caching
+- Adding observability with LangSmith tracing
+- Writing testable AI application components with mocked LLM calls
 
 ## Architecture
 
@@ -38,20 +36,46 @@ END
 
 **6 nodes · 3 LLM calls max · SQLite cache**
 
-### Why LangGraph?
+---
 
-| Feature | How it's used |
-|---|---|
-| Typed `StateGraph` | `GraphState` TypedDict flows through every node |
-| Conditional edges | Missing inputs → early exit; extraction failures → retry |
-| Node modularity | Each node has exactly one responsibility, independently testable |
-| Retry logic | Failed structured output parsing retries up to 3 times |
+## Features
+
+### Resume & JD Understanding
+- Section-aware resume extraction
+- JD keyword extraction with structured outputs
+- PDF upload and text input support
+
+### Matching & Scoring
+- 4-level keyword matching: Strong / Partial / Related / Missing
+- Deterministic weighted scoring in pure Python
+- Alias and synonym-aware matching for AI/ML keywords
+
+### Workflow & Engineering
+- LangGraph-based multi-node workflow
+- SQLite caching by resume and JD hash
+- LangSmith tracing for latency, token usage, and node-level monitoring
+- Unit tests with mocked LLM calls
+
+---
+
+## Why LangGraph?
+
+This project uses LangGraph because the resume optimization process is not a single prompt. It requires a controlled multi-step workflow:
+
+1. Validate inputs
+2. Extract JD requirements
+3. Extract resume evidence
+4. Match keywords deterministically
+5. Compute scores
+6. Rewrite bullets with human review
+
+LangGraph makes this workflow explicit, testable, and observable through typed state, node-level separation, conditional routing, and retry logic.
 
 ---
 
 ## Match Scoring
 
-Scoring is computed deterministically in `src/scoring/match_score.py` — the LLM never does arithmetic.
+Scoring is computed deterministically in `src/scoring/match_score.py` — To avoid hallucinated scores and inconsistent reasoning, all match scoring is computed deterministically in Python. The LLM is only used for extraction and rewriting, while scoring remains reproducible and testable.
 
 | Dimension | Weight |
 |---|---|
@@ -81,58 +105,37 @@ The system knows that:
 
 ---
 
-## Caching
+## Performance Optimization: SQLite Caching
 
-Resume and JD keyword extractions are cached in SQLite by SHA-256 hash. Same resume across multiple JDs = only 1 LLM call per run.
+Resume and JD extractions are cached by SHA-256 hash. This avoids repeated LLM calls when the same resume is evaluated against multiple job descriptions.
 
-**Benchmark results (1 resume × 5 JDs × 3 runs = 15 total):**
+This is useful for real job-search workflows where one resume is repeatedly compared against many roles.
 
-| | Cache OFF | Cache ON |
-|---|---|---|
-| Avg latency | 51.5s | 19.0s |
-| Avg LLM calls | 3.0 | 1.0 |
-| Latency reduction | — | **63%** |
-| LLM call reduction | — | **67%** |
-| Cache hit rate | — | **100%** |
+---
+
+## Normaliser
+
+`src/utils/normaliser.py` is a domain knowledge base for the ML/AI job market:
+
+- **80+ abbreviation expansions** — SFT, RLHF, DPO, QLoRA, PEFT, RAG, vLLM, FSDP...
+- **60+ synonym mappings** — fine-tuning variants, Hugging Face spellings, distributed training aliases...
+- **Phrase-level matching** — 2-word phrases require both core tokens; long phrases require ≥1 meaningful token
+- **Stopword filtering** — generic words like "data", "model", "system" don't trigger false matches alone
+
 
 ---
 
 ## Repository Structure
 
-```
-langgraph-resume-copilot/
-├── app.py                          # Streamlit UI
-├── benchmark.py                    # Cache ON vs OFF benchmark
-├── requirements.txt
-├── .env.example
-├── src/
-│   ├── graph/
-│   │   ├── state.py                # GraphState TypedDict
-│   │   ├── nodes.py                # 6 node functions
-│   │   ├── workflow.py             # Graph assembly
-│   │   └── routing.py             # Conditional edge functions
-│   ├── schemas/
-│   │   └── outputs.py             # Pydantic schemas
-│   ├── prompts/
-│   │   └── prompts.py             # All LLM prompts
-│   ├── scoring/
-│   │   └── match_score.py         # 4-level match engine + weighted scorer
-│   ├── rewriting/
-│   │   └── grounding_checker.py   # Grounding check helpers
-│   ├── storage/
-│   │   └── db.py                  # SQLite cache + run history
-│   └── utils/
-│       ├── llm.py                  # Swappable LLM provider factory
-│       ├── normaliser.py           # ML/AI domain keyword normaliser
-│       ├── section_splitter.py     # Resume section parser
-│       ├── config.py               # Configuration
-│       ├── tracing.py              # LangSmith setup
-│       └── logging.py             # Structured logging
-├── tests/                          # 37 unit tests, 0 API calls required
-└── data/
-    ├── sample_resume.txt
-    ├── sample_jd_ai_engineer.txt
-    └── sample_jd_ml_engineer.txt
+```text
+src/
+├── graph/        # LangGraph state, nodes, routing, workflow assembly
+├── schemas/      # Pydantic structured output schemas
+├── scoring/      # Deterministic keyword matching and scoring
+├── rewriting/    # Bullet grounding checks
+├── storage/      # SQLite cache and run history
+├── prompts/      # LLM prompts
+└── utils/        # LLM provider, PDF parsing, config, tracing
 ```
 
 ---
@@ -200,17 +203,6 @@ LLM_PROVIDER=together    # pip install langchain-together
 ```
 
 No node code changes needed.
-
----
-
-## Normaliser
-
-`src/utils/normaliser.py` is a domain knowledge base for the ML/AI job market:
-
-- **80+ abbreviation expansions** — SFT, RLHF, DPO, QLoRA, PEFT, RAG, vLLM, FSDP...
-- **60+ synonym mappings** — fine-tuning variants, Hugging Face spellings, distributed training aliases...
-- **Phrase-level matching** — 2-word phrases require both core tokens; long phrases require ≥1 meaningful token
-- **Stopword filtering** — generic words like "data", "model", "system" don't trigger false matches alone
 
 ---
 
